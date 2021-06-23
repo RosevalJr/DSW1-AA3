@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span th:text="#{vaga.listar.empresa}"></span><span
+						th:text="${empresaLogada.name}"></span></li>
+				</ul>
+				<a class="btn btn-primary btn-md"
+					th:href="@{/empresas/cadastrarVagas}" role="button"> <span
+					class="oi oi-plus" title="Inicial" aria-hidden="true"></span> <span
+					th:text="#{vaga.cadastrar.label}"></span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container" id="listagem">
+
+			<div class="table-responsive">
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{vaga.descricao}"></th>
+							<th th:text="#{vaga.salario}"></th>
+							<th th:text="#{vaga.datalimite}"></th>
+							<th th:text="#{analisar.candidaturas}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="vaga : ${vagas}">
+							<td th:text="${vaga.id}"></td>
+							<td th:text="${vaga.descricao}"></td>
+							<td th:text="${vaga.remuneracao}"></td>
+							<td th:text="${vaga.datalimite}"></td>
+							<td colspan="2"><a class="btn btn-info btn-sm"
+								th:href="@{/empresas/listarCandidaturas/{id} (id=${vaga.id}) }"
+								role="button"> <span class="oi oi-brush"
+									th:title="#{link.candidatura.listar}" aria-hidden="true"> </span>
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

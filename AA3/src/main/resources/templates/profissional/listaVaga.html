@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span th:text="#{vaga.informacoes}"></span></li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container" id="listagem">
+
+			<div class="table-responsive">
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{vaga.empresa}"></th>
+							<th th:text="#{vaga.descricao}"></th>
+							<th th:text="#{vaga.salario}"></th>
+							<th th:text="#{vaga.datalimite}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="vaga : ${vaga}">
+							<td th:text="${vaga.id}"></td>
+							<td th:text="${vaga.empresa.name}"></td>
+							<td th:text="${vaga.descricao}"></td>
+							<td th:text="${vaga.remuneracao}"></td>
+							<td th:text="${vaga.datalimite}"></td>
+							<td colspan="10"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="container" id="cadastro" align="center">
+			<div th:replace="fragments/alert"></div>
+
+	<h1><span th:text="#{file.label}"></span></h1>
+	<form method="POST" th:action="@{/profissionais/uploadFile/{id} (id=${vaga.id}) }" enctype="multipart/form-data">
+		<span th:text="#{file}"></span>  <input type="file" name="file" accept="application/pdf" /><input type="submit" value="Upload" />
+	</form>
+
+		</div>
+
+	</section>
+</body>
+</html>
