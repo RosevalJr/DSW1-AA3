@@ -12,7 +12,10 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(value = { "vagas" })
 @Entity
 @Table(name = "Empresa")
 public class Empresa extends Usuario {

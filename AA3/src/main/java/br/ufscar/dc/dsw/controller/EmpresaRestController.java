@@ -1,25 +1,20 @@
 package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.text.ParseException;
 import java.util.List;
 
-import javax.mail.internet.InternetAddress;
-import javax.validation.Valid;
-
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -43,6 +38,30 @@ public class EmpresaRestController {
 		} catch (IOException e) {
 			return false;
 		}
+	}
+	
+	private void parse(Empresa empresa, JSONObject json) {
+
+		Object id = json.get("id");
+		if (id != null) {
+			if (id instanceof Integer) {
+				empresa.setId(((Integer) id).longValue());
+			} else {
+				empresa.setId((Long) id);
+			}
+		}
+
+		empresa.setCNPJ((String) json.get("cnpj"));
+		empresa.setName((String) json.get("name"));
+	}
+	
+	@GetMapping(path = "/empresas")
+	public ResponseEntity<List<Empresa>> lista() {
+		List<Empresa> lista = service.findAll();
+		if (lista.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(lista);
 	}
 
 }
