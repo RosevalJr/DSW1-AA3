@@ -118,7 +118,7 @@ public class Aa2Application {
 						Vaga v3 = new Vaga();
 						v3.setDescricao("Essa aqui vai dar fechada!");
 						v3.setRemuneracao(BigDecimal.valueOf(15.40));
-						v3.setDatalimite("01/01/2025");
+						v3.setDatalimite("01/01/2020");
 						v3.setEmpresa(e2);
 						vagaDAO.save(v3);
 						

@@ -8,7 +8,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @SuppressWarnings("serial")
+@JsonIgnoreProperties(value = { "profissional", "vaga"})
 @Entity
 @Table(name = "Candidatura", 
 	   uniqueConstraints = {@UniqueConstraint(columnNames = {"vaga_id", "profissional_id"})}

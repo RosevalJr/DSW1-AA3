@@ -63,5 +63,35 @@ public class EmpresaRestController {
 		}
 		return ResponseEntity.ok(lista);
 	}
+	
+	@GetMapping(path = "/empresas/{id}")
+	public ResponseEntity<Empresa> lista(@PathVariable("id") long id) {
+		Empresa empresa = service.findById(id);
+		if (empresa == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(empresa);
+	}
+	
+	@GetMapping(path = "/empresas/cidades/{nome}")
+	public ResponseEntity<List<Empresa>> lista(@PathVariable("nome") String nome) {
+		List<Empresa> empresas = service.findByCidade(nome);
+		if (empresas == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(empresas);
+	}
+	
+	@DeleteMapping(path = "/empresas/{id}")
+	public ResponseEntity<Boolean> remove(@PathVariable("id") long id) {
+
+		Empresa empresa = service.findById(id);
+		if (empresa == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			service.deleteById(id);
+			return ResponseEntity.noContent().build();
+		}
+	}
 
 }

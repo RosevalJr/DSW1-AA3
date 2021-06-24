@@ -66,4 +66,25 @@ public class ProfissionalRestController {
 		}
 		return ResponseEntity.ok(lista);
 	}
+	
+	@GetMapping(path = "/profissionais/{id}")
+	public ResponseEntity<Profissional> lista(@PathVariable("id") long id) {
+		Profissional profissional = service.findById(id);
+		if (profissional == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(profissional);
+	}
+	
+	@DeleteMapping(path = "/profissionais/{id}")
+	public ResponseEntity<Boolean> remove(@PathVariable("id") long id) {
+
+		Profissional profissional = service.findById(id);
+		if (profissional == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			service.deleteById(id);
+			return ResponseEntity.noContent().build();
+		}
+	}
 }

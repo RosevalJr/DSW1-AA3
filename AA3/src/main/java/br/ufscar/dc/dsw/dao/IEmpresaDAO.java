@@ -12,6 +12,8 @@ public interface IEmpresaDAO extends CrudRepository<Empresa, Long>{
 	
 	Empresa findByCNPJ(String CNPJ);
 	
+	List<Empresa> findByCidade(String cidade); 
+	
 	Empresa findByUsername(String username);
 
 	List<Empresa> findAll();
