@@ -2,6 +2,7 @@ package br.ufscar.dc.dsw.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,5 +94,42 @@ public class EmpresaRestController {
 			return ResponseEntity.noContent().build();
 		}
 	}
-
+	
+	@PostMapping(path = "/empresas")
+	@ResponseBody
+	public ResponseEntity<Empresa> cria(@RequestBody JSONObject json){
+		try {
+			if(isJSONValid(json.toString())){
+				Empresa empresa = new Empresa();
+				parse(empresa, json);
+				service.save(empresa);
+				return ResponseEntity.ok(empresa);
+			} else {
+				return ResponseEntity.badRequest().body(null);	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+		}
+	}
+	
+	@PutMapping(path = "/empresas/{id}")
+	public ResponseEntity<Empresa> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+		try {
+			if(isJSONValid(json.toString())){
+				Empresa empresa = service.findById(id);
+				if(empresa == null) {
+					return ResponseEntity.notFound().build();
+				} else {
+					parse(empresa, json);
+					service.save(empresa);
+					return ResponseEntity.ok(empresa);
+				}
+			} else { 
+				return ResponseEntity.badRequest().body(null);
+			}
+		} catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+		}
+	}
 }

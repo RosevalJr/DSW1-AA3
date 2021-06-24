@@ -43,19 +43,19 @@ public class ProfissionalRestController {
 		}
 	}
 	
-	private void parse(Empresa empresa, JSONObject json) {
+	private void parse(Profissional profissional, JSONObject json) {
 
 		Object id = json.get("id");
 		if (id != null) {
 			if (id instanceof Integer) {
-				empresa.setId(((Integer) id).longValue());
+				profissional.setId(((Integer) id).longValue());
 			} else {
-				empresa.setId((Long) id);
+				profissional.setId((Long) id);
 			}
 		}
 
-		empresa.setCNPJ((String) json.get("cnpj"));
-		empresa.setName((String) json.get("name"));
+		profissional.setCPF((String) json.get("cpf"));
+		profissional.setName((String) json.get("name"));
 	}
 	
 	@GetMapping(path = "/profissionais")
@@ -85,6 +85,44 @@ public class ProfissionalRestController {
 		} else {
 			service.deleteById(id);
 			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@PostMapping(path = "/profissionais")
+	@ResponseBody
+	public ResponseEntity<Profissional> cria(@RequestBody JSONObject json) {
+		try {
+			if(isJSONValid(json.toString())) {
+				Profissional profissional = new Profissional();
+				parse(profissional, json);
+				service.save(profissional);
+				return ResponseEntity.ok(profissional);
+			} else {
+				return ResponseEntity.badRequest().body(null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
+		}
+	}
+	
+	@PutMapping(path = "/profissionais/{id}")
+	public ResponseEntity<Profissional> atualiza(@PathVariable("id") long id, @RequestBody JSONObject json) {
+		try {
+			if(isJSONValid(json.toString())) {
+				Profissional profissional = service.findById(id);
+				if (profissional == null) {
+					return ResponseEntity.notFound().build();
+				} else {
+					parse(profissional, json);
+					service.save(profissional);
+					return ResponseEntity.ok(profissional);
+				}
+			} else { 
+				return ResponseEntity.badRequest().body(null);
+			}
+		} catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(null);
 		}
 	}
 }
