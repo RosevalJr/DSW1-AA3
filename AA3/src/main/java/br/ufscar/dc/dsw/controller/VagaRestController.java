@@ -49,13 +49,13 @@ public class VagaRestController {
 	}
 	
 	@GetMapping(path = "/vagas/{id}")
-	public ResponseEntity<List<Candidatura>> listaLocacao(@PathVariable("id") long id) {
+	public ResponseEntity<Vaga> listaLocacao(@PathVariable("id") long id) {
 		Vaga vaga = serviceVaga.findById(id);
 		
 		if (vaga == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(vaga.getCandidaturas());
+		return ResponseEntity.ok(vaga);
 	}
 	
 	@GetMapping(path = "/vagas/empresas/{id}")

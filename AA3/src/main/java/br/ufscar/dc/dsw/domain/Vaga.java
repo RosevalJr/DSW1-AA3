@@ -23,7 +23,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @SuppressWarnings("serial")
-@JsonIgnoreProperties(value = { "candidaturas", "empresa"})
+@JsonIgnoreProperties(value = { "candidaturas"})
 @Entity
 @Table(name = "Vaga")
 public class Vaga extends AbstractEntity<Long>{
