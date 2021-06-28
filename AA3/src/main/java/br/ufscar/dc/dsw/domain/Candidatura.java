@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @SuppressWarnings("serial")
-@JsonIgnoreProperties(value = { "profissional", "vaga"})
+@JsonIgnoreProperties(value = { "vaga"})
 @Entity
 @Table(name = "Candidatura", 
 	   uniqueConstraints = {@UniqueConstraint(columnNames = {"vaga_id", "profissional_id"})}

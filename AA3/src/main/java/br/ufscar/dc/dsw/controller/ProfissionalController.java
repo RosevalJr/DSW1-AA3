@@ -75,10 +75,6 @@ public class ProfissionalController {
 		
 		Vaga vaga = vagaDAO.findById(id);
 		
-		Profissional profissional = profissionalDAO.findByUsername(principal.getName());
-		//List<Vaga> todasVagas = vagaDAO.findAll();
-		//List<Vaga> vagasAbertas =  new ArrayList<Vaga>();
-		
 		if(vaga.isAberta()) {
 			model.addAttribute("vaga", vaga);
 			return "profissional/listaVaga";
