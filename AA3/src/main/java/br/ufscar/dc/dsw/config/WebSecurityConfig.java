@@ -41,12 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-		// Controladores REST    
-		.antMatchers("/profissionais", "/empresas", "/vagas").permitAll()    
-		.antMatchers("/profissionais/{\\d+}", "/empresas/{\\d+}").permitAll()    
-		.antMatchers("/vagas/{\\d+}").permitAll()    
-		.antMatchers("/empresas/cidades/{\\w+}").permitAll()    
-		.antMatchers("/vagas/empresas/{\\d+}").permitAll()// Demais linhas
+		// Controladores REST
+		.antMatchers("/profissionais", "/empresas", "/vagas").permitAll()
+		.antMatchers("/profissionais/{\\d+}", "/empresas/{\\d+}").permitAll()
+		.antMatchers("/vagas/{\\d+}").permitAll()
+		.antMatchers("/empresas/cidades/{\\w+}").permitAll()
+		.antMatchers("/vagas/empresas/{\\d+}").permitAll()
+		.antMatchers("/error", "/login/**", "/js/**", "/css/**", "/image/**", "/webjars/**", "/vagas/**").permitAll()
 		.anyRequest().authenticated()
 		.and()
 			.formLogin().loginPage("/login").permitAll()
