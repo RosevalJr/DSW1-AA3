@@ -35,9 +35,9 @@ localhost:8080/
 - Para acessar as funcionalidade que necessitam do papel de usuário Empresa, pode-se entrar no sistema com LOGIN=microsoft@hotmail.com SENHA=123password ou LOGIN=roseval@estudante.ufscar.br SENHA=123password.
 
 6- Especificações dos métodos POST da REST API.
-- POST de profissional (http://localhost:8080/empresas):
+- POST de profissional (http://localhost:8080/profissionais):
 - BODY EXEMPLO: {"cpf": "495.575.268.32", "username": "user@dominio.com", "name": "Malaquias JUnior", "password": "senha123", "telefone": "55(77)86713-4261", "nascimento": "19/07/1998"}
-- POST de empresa (http://localhost:8080/profissionais):
+- POST de empresa (http://localhost:8080/empresas):
 - BODY EXEMPLO: {"cnpj": "12.741.115/0001-06", "username": "user@dominio.com", "name": "Empresa Inc.", "password": "senha123", "descricao": "uma empresa Legal", "cidade": "Campinas"}
 
 # Checklist de Requisitos Concluídos
